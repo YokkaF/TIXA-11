@@ -6,10 +6,11 @@ using UnityEngine.AI;
 public class EnemyAI : MonoBehaviour
 {
     [SerializeField] private bool _isPlayerNoticed;
-
+    [SerializeField] private PlayerHealth playerHealth;
     [SerializeField] private List<Transform> points;
     [SerializeField] private NavMeshAgent _navMeshAgent;
     [SerializeField] private PlayerController player;
+    [SerializeField] private float damage;
     [SerializeField] private float viewAngle;
     private void Start()
     {
@@ -21,13 +22,23 @@ public class EnemyAI : MonoBehaviour
         noticePlayerUpdate();
         PointPickUpdate();
         ChaseUpdate();
-        
+        AttackUpdate();
+
+
     }
 
 
 
 
-
+    private void AttackUpdate()
+    {
+        if (_isPlayerNoticed)
+        {
+            if(_navMeshAgent.remainingDistance <= _navMeshAgent.stoppingDistance) {
+                playerHealth.DealDamage(damage * Time.deltaTime);
+            }
+        }
+    }
     private void PointPick()
     {
         _navMeshAgent.destination = points[Random.Range(0, points.Count)].position;
@@ -36,7 +47,10 @@ public class EnemyAI : MonoBehaviour
     {
         if (!_isPlayerNoticed)
         {
-            if (_navMeshAgent.remainingDistance == 0) {PointPick();}
+            if (_navMeshAgent.remainingDistance <= _navMeshAgent.stoppingDistance) 
+            {
+                PointPick();
+            }
                
         }
     }

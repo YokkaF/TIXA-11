@@ -12,7 +12,7 @@ public class AmmoController : MonoBehaviour
     }
 
     // Update is called once per frame
-    void FixedUpdate()
+    void Update()
     {
         if (Input.GetMouseButtonDown(0)) {
             Instantiate(bulletPref, SpawnAmmo.position, SpawnAmmo.rotation);
