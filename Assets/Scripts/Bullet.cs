@@ -8,7 +8,7 @@ public class Bullet : MonoBehaviour
 {
     [SerializeField] private float speed;
     [SerializeField] private float lifeTime;
-    [SerializeField] private float damage;
+    public float damage;
 
     private void Start()
     {
@@ -31,7 +31,7 @@ public class Bullet : MonoBehaviour
         var enemyHealth = collision.gameObject.GetComponent<EnemyHealth>();
         if (enemyHealth != null)
         {
-            enemyHealth.healthValue -= damage;
+            enemyHealth.DealDamage(damage);
         }
         DestroyBullet();
          if (enemyHealth.healthValue <= 0)

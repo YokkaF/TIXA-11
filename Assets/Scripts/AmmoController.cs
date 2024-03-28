@@ -6,6 +6,7 @@ public class AmmoController : MonoBehaviour
 {
     [SerializeField] private Bullet bulletPref;
     [SerializeField] private Transform SpawnAmmo;
+    [SerializeField] private float damage;
     void Start()
     {
         
@@ -15,7 +16,8 @@ public class AmmoController : MonoBehaviour
     void Update()
     {
         if (Input.GetMouseButtonDown(0)) {
-            Instantiate(bulletPref, SpawnAmmo.position, SpawnAmmo.rotation);
+            var bullet = Instantiate(bulletPref, SpawnAmmo.position, SpawnAmmo.rotation);
+            bullet.damage = damage;
         }
     }
 }
